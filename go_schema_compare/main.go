@@ -9,7 +9,49 @@ import (
 )
 
 var directory = "../auto_schema_compare/swagger_files/currentSwaggerDefinitions.json"
-var resource = "CallableTimeSet"
+
+var objects = []string{
+	"DataTable",
+	"EmergencyGroup",
+	"Flow",
+	"Grammar",
+	"GrammarLanguage",
+	"IVR",
+	"ScheduleGroup",
+	"Schedule",
+	"Prompt",
+	"AuthzDivision",
+	"DomainOrganizationRoleCreate",
+	"InstagramIntegrationRequest",
+	"MessagingSettingRequest",
+	"SupportedContent",
+	"ExternalMetricDefinitionCreateRequest",
+	"ExternalContact",
+	"FlowOutcome",
+	"FlowMilestone",
+	"GroupCreate",
+	"RoleDivisionGrants",
+	"CreateIntegrationRequest",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"CallableTimeSet",
+	"RoutingQueue",
+}
 
 func main() {
 	// Read the JSON file
@@ -24,22 +66,37 @@ func main() {
 		log.Fatalf("failed to unmarshal JSON: %s", err)
 	}
 
-	// Check if the resource exists
-	resourceObject, exists := resourceData[resource].(map[string]interface{})
-	if !exists {
-		log.Fatalf("resource %s not found in JSON", resource)
+	// Create the directory if it doesn't exist
+	if _, err := os.Stat("object"); os.IsNotExist(err) {
+		if err := os.Mkdir("object", os.ModePerm); err != nil {
+			log.Fatalf("failed to create directory: %s", err)
+		}
 	}
+	
+    for _, resource := range objects {
+        // Check if the resource exists
+        resourceObject, exists := resourceData[resource].(map[string]interface{})
+        if !exists {
+            log.Printf("resource %s not found in JSON", resource)
+            continue
+        }
 
-	seenRefs := make(map[string]bool)
-	fullyResolvedSchema := resolveRefs(resourceObject, resourceData, seenRefs)
+        seenRefs := make(map[string]bool)
+        fullyResolvedSchema := resolveRefs(resourceObject, resourceData, seenRefs)
 
-	// Marshal the fully resolved schema back into JSON for output
-	resourceJSON, err := json.MarshalIndent(fullyResolvedSchema, "", "  ")
-	if err != nil {
-		log.Fatalf("Failed to marshal resource JSON: %s", err)
-	}
+        // Marshal the fully resolved schema back into JSON for output
+        resourceJSON, err := json.MarshalIndent(fullyResolvedSchema, "", "  ")
+        if err != nil {
+            log.Fatalf("Failed to marshal resource JSON: %s", err)
+        }
 
-	fmt.Println(string(resourceJSON))
+		// Write the resource JSON to a file
+		fileName := fmt.Sprintf("object/%s.json", resource)
+		if err := os.WriteFile(fileName, resourceJSON, os.ModePerm); err != nil {
+			log.Fatalf("Failed to write resource JSON to file: %s", err)
+		}
+		fmt.Printf("Resource %s written to %s\n", resource, fileName)
+    }
 }
 
 func resolveRefs(schema map[string]interface{}, definitions map[string]interface{}, seenRefs map[string]bool) map[string]interface{} {
