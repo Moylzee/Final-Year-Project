@@ -1,0 +1,78 @@
+{
+  "description": "Contains a metadata representation for a JSON schema stored in DataTables along with an optional field for the schema itself",
+  "properties": {
+    "description": {
+      "description": "The description from the JSON schema (equates to the Description field on the JSON schema.)",
+      "type": "string"
+    },
+    "division": {
+      "properties": {
+        "id": {
+          "description": "The globally unique identifier for the object.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "selfUri": {
+          "description": "The URI for this object",
+          "format": "uri",
+          "readOnly": true,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "id": {
+      "description": "The globally unique identifier for the object.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "schema": {
+      "description": "A JSON Schema document.",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "additionalProperties": {
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "required": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "selfUri": {
+      "description": "The URI for this object",
+      "format": "uri",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

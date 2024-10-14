@@ -1,0 +1,130 @@
+{
+  "description": "A group of emergency call flows to use in an emergency.",
+  "properties": {
+    "createdBy": {
+      "description": "The ID of the user that created the resource.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "createdByApp": {
+      "description": "The application that created the resource.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dateCreated": {
+      "description": "The date the resource was created. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+      "format": "date-time",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dateModified": {
+      "description": "The date of the last modification to the resource. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+      "format": "date-time",
+      "readOnly": true,
+      "type": "string"
+    },
+    "description": {
+      "description": "The resource's description.",
+      "type": "string"
+    },
+    "division": {
+      "properties": {
+        "id": {
+          "description": "The globally unique identifier for the object.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "selfUri": {
+          "description": "The URI for this object",
+          "format": "uri",
+          "readOnly": true,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "emergencyCallFlows": {
+      "description": "The emergency call flow(s) to use during an emergency.",
+      "items": {
+        "description": "An emergency flow associates a call flow to use in an emergency with the ivr(s) to route to it.",
+        "properties": {
+          "emergencyFlow": {
+            "$ref": "#/definitions/DomainEntityRef",
+            "description": "The call flow to execute in an emergency."
+          },
+          "ivrs": {
+            "description": "The IVR(s) to route to the call flow during an emergency.",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "selfUri": {
+                  "format": "uri",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "enabled": {
+      "description": "True if an emergency is occurring and the associated emergency call flow(s) should be used.  False otherwise.",
+      "type": "boolean"
+    },
+    "id": {
+      "description": "The globally unique identifier for the object.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "modifiedBy": {
+      "description": "The ID of the user that last modified the resource.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "modifiedByApp": {
+      "description": "The application that last modified the resource.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the entity.",
+      "type": "string"
+    },
+    "selfUri": {
+      "description": "The URI for this object",
+      "format": "uri",
+      "readOnly": true,
+      "type": "string"
+    },
+    "state": {
+      "description": "Indicates if the resource is active, inactive, or deleted.",
+      "enum": [
+        "active",
+        "inactive",
+        "deleted"
+      ],
+      "readOnly": true,
+      "type": "string"
+    },
+    "version": {
+      "description": "The current version of the resource.",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

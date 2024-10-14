@@ -1,0 +1,1979 @@
+{
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "checkedInVersion": {
+      "$ref": "#/definitions/FlowVersion"
+    },
+    "compatibleFlowTypes": {
+      "description": "Compatible flow types designate which flow types are allowed to embed a flow’s configuration within their own flow configuration.  Currently the only flows that can be embedded are Common Module flows and the embedding flow can invoke them using the Call Common Module action.",
+      "items": {
+        "enum": [
+          "BOT",
+          "COMMONMODULE",
+          "DIGITALBOT",
+          "INBOUNDCALL",
+          "INBOUNDCHAT",
+          "INBOUNDEMAIL",
+          "INBOUNDSHORTMESSAGE",
+          "INQUEUECALL",
+          "INQUEUEEMAIL",
+          "INQUEUESHORTMESSAGE",
+          "OUTBOUNDCALL",
+          "SECURECALL",
+          "SPEECH",
+          "SURVEYINVITE",
+          "VOICE",
+          "VOICEMAIL",
+          "VOICESURVEY",
+          "WORKFLOW",
+          "WORKITEM"
+        ],
+        "type": "string"
+      },
+      "readOnly": true,
+      "type": "array"
+    },
+    "currentOperation": {
+      "properties": {
+        "actionName": {
+          "description": "Action name",
+          "enum": [
+            "CREATE",
+            "CHECKIN",
+            "CHECKOUT",
+            "DEBUG",
+            "DELETE",
+            "HISTORY",
+            "PUBLISH",
+            "REVERT",
+            "SAVE",
+            "STATE_CHANGE",
+            "UPDATE",
+            "VALIDATE"
+          ],
+          "type": "string"
+        },
+        "actionStatus": {
+          "description": "Action status",
+          "enum": [
+            "LOCKED",
+            "UNLOCKED",
+            "STARTED",
+            "PENDING_GENERATION",
+            "PENDING_BACKEND_NOTIFICATION",
+            "SUCCESS",
+            "FAILURE"
+          ],
+          "type": "string"
+        },
+        "client": {
+          "$ref": "#/definitions/DomainEntityRef"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errorDetails": {
+          "items": {
+            "properties": {
+              "entityId": {
+                "type": "string"
+              },
+              "entityName": {
+                "type": "string"
+              },
+              "errorCode": {
+                "type": "string"
+              },
+              "fieldName": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "errorMessageParams": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "type": "object"
+    },
+    "debugVersion": {
+      "$ref": "#/definitions/FlowVersion"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "division": {
+      "$ref": "#/definitions/WritableDivision",
+      "description": "The division to which this entity belongs."
+    },
+    "id": {
+      "description": "The flow identifier",
+      "type": "string"
+    },
+    "inputSchema": {
+      "description": "json schema describing the inputs for the flow",
+      "type": "object"
+    },
+    "lockedClient": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "selfUri": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "lockedUser": {
+      "properties": {
+        "acdAutoAnswer": {
+          "description": "acd auto answer",
+          "type": "boolean"
+        },
+        "addresses": {
+          "description": "Email addresses and phone numbers for this user",
+          "items": {
+            "$ref": "#/definitions/Contact"
+          },
+          "type": "array"
+        },
+        "authorization": {
+          "properties": {
+            "permissionPolicies": {
+              "description": "The policies configured for assigned permissions.",
+              "items": {
+                "properties": {
+                  "actionSet": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "actionSetKey": {
+                    "type": "string"
+                  },
+                  "allowConditions": {
+                    "type": "boolean"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "entityName": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "namedResources": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "policyDescription": {
+                    "type": "string"
+                  },
+                  "policyName": {
+                    "type": "string"
+                  },
+                  "resourceCondition": {
+                    "type": "string"
+                  },
+                  "resourceConditionNode": {
+                    "properties": {
+                      "conjunction": {
+                        "enum": [
+                          "AND",
+                          "OR"
+                        ],
+                        "type": "string"
+                      },
+                      "operands": {
+                        "items": {
+                          "properties": {
+                            "type": {
+                              "enum": [
+                                "SCALAR",
+                                "VARIABLE",
+                                "USER",
+                                "QUEUE"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "operator": {
+                        "enum": [
+                          "EQ",
+                          "IN",
+                          "GE",
+                          "GT",
+                          "LE",
+                          "LT"
+                        ],
+                        "type": "string"
+                      },
+                      "terms": {
+                        "items": {
+                          "$ref": "#/definitions/ResourceConditionNode"
+                        },
+                        "type": "array"
+                      },
+                      "variableName": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "array"
+            },
+            "permissions": {
+              "description": "A collection of the permissions granted by all assigned roles",
+              "items": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "type": "array"
+            },
+            "roles": {
+              "items": {
+                "$ref": "#/definitions/DomainRole"
+              },
+              "type": "array"
+            },
+            "unusedRoles": {
+              "description": "A collection of the roles the user is not using",
+              "items": {
+                "properties": {
+                  "id": {
+                    "description": "The ID of the role",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "The name of the role",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "biography": {
+          "properties": {
+            "biography": {
+              "description": "Personal detailed description",
+              "type": "string"
+            },
+            "education": {
+              "description": "User education details",
+              "items": {
+                "properties": {
+                  "dateEnd": {
+                    "description": "Dates are represented as an ISO-8601 string. For example: yyyy-MM-dd",
+                    "format": "date",
+                    "type": "string"
+                  },
+                  "dateStart": {
+                    "description": "Dates are represented as an ISO-8601 string. For example: yyyy-MM-dd",
+                    "format": "date",
+                    "type": "string"
+                  },
+                  "fieldOfStudy": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "description": "Notes about education has a 2000 character limit",
+                    "type": "string"
+                  },
+                  "school": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "hobbies": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "interests": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "spouse": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "certifications": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "chat": {
+          "properties": {
+            "jabberId": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "conversationSummary": {
+          "properties": {
+            "call": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "callback": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "chat": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "email": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "message": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "socialExpression": {
+              "$ref": "#/definitions/MediaSummary"
+            },
+            "userId": {
+              "type": "string"
+            },
+            "video": {
+              "properties": {
+                "contactCenter": {
+                  "$ref": "#/definitions/MediaSummaryDetail"
+                },
+                "enterprise": {
+                  "properties": {
+                    "active": {
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "acw": {
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "dateLastLogin": {
+          "description": "The last time the user logged in using username and password. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+          "format": "date-time",
+          "readOnly": true,
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "division": {
+          "properties": {
+            "id": {
+              "description": "The globally unique identifier for the object.",
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "email": {
+          "type": "string"
+        },
+        "employerInfo": {
+          "properties": {
+            "dateHire": {
+              "type": "string"
+            },
+            "employeeId": {
+              "type": "string"
+            },
+            "employeeType": {
+              "type": "string"
+            },
+            "officialName": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "geolocation": {
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "id": {
+              "description": "The globally unique identifier for the object.",
+              "readOnly": true,
+              "type": "string"
+            },
+            "latitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "locations": {
+              "items": {
+                "properties": {
+                  "address": {
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "countryName": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "street1": {
+                        "type": "string"
+                      },
+                      "street2": {
+                        "type": "string"
+                      },
+                      "zipcode": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "addressStored": {
+                    "description": "Boolean field which states if the address has been stored for E911",
+                    "readOnly": true,
+                    "type": "boolean"
+                  },
+                  "addressVerificationDetails": {
+                    "properties": {
+                      "dateFinished": {
+                        "description": "Finished time of address verification process. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "dateStarted": {
+                        "description": "Time started of address verification process. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "service": {
+                        "description": "Third party service used for address verification",
+                        "example": "smartystreets-us",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "Status of address verification process",
+                        "enum": [
+                          "Pending",
+                          "InProgress",
+                          "Retry",
+                          "Complete",
+                          "Failed"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "addressVerified": {
+                    "description": "Boolean field which states if the address has been verified as an actual address",
+                    "readOnly": true,
+                    "type": "boolean"
+                  },
+                  "contactUser": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "selfUri": {
+                        "format": "uri",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "emergencyNumber": {
+                    "properties": {
+                      "e164": {
+                        "type": "string"
+                      },
+                      "number": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "The type of emergency number.",
+                        "enum": [
+                          "default",
+                          "elin"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "floorplanImage": {
+                    "description": "Floorplan images of the location entity, retrieved with ?expand=images query parameter",
+                    "items": {
+                      "$ref": "#/definitions/LocationImage"
+                    },
+                    "readOnly": true,
+                    "type": "array"
+                  },
+                  "id": {
+                    "description": "The globally unique identifier for the object.",
+                    "readOnly": true,
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "description": "Notes for the location entity",
+                    "type": "string"
+                  },
+                  "path": {
+                    "description": "A list of ancestor IDs in order",
+                    "items": {
+                      "type": "string"
+                    },
+                    "readOnly": true,
+                    "type": "array"
+                  },
+                  "profileImage": {
+                    "description": "Profile image of the location entity, retrieved with ?expand=images query parameter",
+                    "items": {
+                      "properties": {
+                        "imageUri": {
+                          "type": "string"
+                        },
+                        "resolution": {
+                          "description": "Height and/or width of image. ex: 640x480 or x128",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "readOnly": true,
+                    "type": "array"
+                  },
+                  "selfUri": {
+                    "description": "The URI for this object",
+                    "format": "uri",
+                    "readOnly": true,
+                    "type": "string"
+                  },
+                  "state": {
+                    "description": "Current state of the location entity",
+                    "enum": [
+                      "active",
+                      "deleted"
+                    ],
+                    "type": "string"
+                  },
+                  "version": {
+                    "description": "Current version of the location entity, value to be supplied should be retrieved by a GET or on create/update response",
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "longitude": {
+              "format": "double",
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "primary": {
+              "description": "A boolean used to tell whether or not to set this geolocation client as the primary on a PATCH",
+              "type": "boolean"
+            },
+            "region": {
+              "type": "string"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
+            "type": {
+              "description": "A string used to describe the type of client the geolocation is being updated from e.g. ios, android, web, etc.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "groups": {
+          "description": "The groups the user is a member of",
+          "items": {
+            "properties": {
+              "addresses": {
+                "items": {
+                  "properties": {
+                    "address": {
+                      "description": "Phone number for this contact type",
+                      "type": "string"
+                    },
+                    "display": {
+                      "description": "Formatted version of the address property",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "extension": {
+                      "description": "Extension is set if the number is e164 valid",
+                      "type": "string"
+                    },
+                    "mediaType": {
+                      "description": "Media type of the address",
+                      "enum": [
+                        "PHONE"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "Contact type of the address",
+                      "enum": [
+                        "GROUPRING",
+                        "GROUPPHONE"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "address",
+                    "mediaType",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "dateModified": {
+                "description": "Last modified date/time. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                "format": "date-time",
+                "readOnly": true,
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "description": "The globally unique identifier for the object.",
+                "readOnly": true,
+                "type": "string"
+              },
+              "images": {
+                "items": {
+                  "$ref": "#/definitions/UserImage"
+                },
+                "type": "array"
+              },
+              "memberCount": {
+                "description": "Number of members.",
+                "format": "int64",
+                "readOnly": true,
+                "type": "integer"
+              },
+              "name": {
+                "description": "The group name.",
+                "type": "string"
+              },
+              "owners": {
+                "description": "Owners of the group",
+                "items": {
+                  "$ref": "#/definitions/User"
+                },
+                "type": "array"
+              },
+              "rolesEnabled": {
+                "description": "Allow roles to be assigned to this group",
+                "type": "boolean"
+              },
+              "rulesVisible": {
+                "description": "Are membership rules visible to the person requesting to view the group",
+                "type": "boolean"
+              },
+              "selfUri": {
+                "description": "The URI for this object",
+                "format": "uri",
+                "readOnly": true,
+                "type": "string"
+              },
+              "state": {
+                "description": "Active, inactive, or deleted state.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "deleted"
+                ],
+                "readOnly": true,
+                "type": "string"
+              },
+              "type": {
+                "description": "Type of group.",
+                "enum": [
+                  "official",
+                  "social"
+                ],
+                "type": "string"
+              },
+              "version": {
+                "description": "Current version for this resource.",
+                "format": "int32",
+                "readOnly": true,
+                "type": "integer"
+              },
+              "visibility": {
+                "description": "Who can view this group",
+                "enum": [
+                  "public",
+                  "owners",
+                  "members"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "rulesVisible",
+              "type",
+              "visibility"
+            ],
+            "type": "object"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "id": {
+          "description": "The globally unique identifier for the object.",
+          "readOnly": true,
+          "type": "string"
+        },
+        "images": {
+          "items": {
+            "properties": {
+              "imageUri": {
+                "type": "string"
+              },
+              "resolution": {
+                "description": "Height and/or width of image. ex: 640x480 or x128",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "integrationPresence": {
+          "properties": {
+            "id": {
+              "description": "The globally unique identifier for the object.",
+              "readOnly": true,
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "modifiedDate": {
+              "description": "Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "presenceDefinition": {
+              "properties": {
+                "id": {
+                  "description": "description",
+                  "type": "string"
+                },
+                "selfUri": {
+                  "description": "The URI for this object",
+                  "format": "uri",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "systemPresence": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "primary": {
+              "description": "A boolean used to tell whether or not to set this presence source as the primary on a PATCH",
+              "type": "boolean"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
+            "source": {
+              "description": "Deprecated - The sourceID field should be used as a replacement.",
+              "type": "string"
+            },
+            "sourceId": {
+              "description": "Represents the ID of a registered source",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "languagePreference": {
+          "description": "preferred language by the user",
+          "readOnly": true,
+          "type": "string"
+        },
+        "languages": {
+          "description": "Routing (ACD) languages possessed by the user",
+          "items": {
+            "description": "Represents an organization language assigned to a user. When assigning to a user specify the organization language id as the id.",
+            "properties": {
+              "id": {
+                "description": "The globally unique identifier for the object.",
+                "readOnly": true,
+                "type": "string"
+              },
+              "languageUri": {
+                "description": "URI to the organization language used by this user language.",
+                "format": "uri",
+                "readOnly": true,
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "proficiency": {
+                "description": "A rating from 0.0 to 5.0 that indicates how fluent an agent is in a particular language. ACD interactions are routed to agents with higher proficiency ratings.",
+                "format": "double",
+                "type": "number"
+              },
+              "selfUri": {
+                "description": "The URI for this object",
+                "format": "uri",
+                "readOnly": true,
+                "type": "string"
+              },
+              "state": {
+                "description": "Activate or deactivate this routing language.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "deleted"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "lastTokenIssued": {
+          "properties": {
+            "dateIssued": {
+              "description": "Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "locations": {
+          "description": "The user placement at each site location.",
+          "items": {
+            "properties": {
+              "coordinates": {
+                "additionalProperties": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "description": "Users coordinates on the floorplan. Only used when floorplanImage is set",
+                "type": "object"
+              },
+              "floorplanId": {
+                "description": "Unique identifier for the location floorplan image",
+                "readOnly": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the location",
+                "type": "string"
+              },
+              "locationDefinition": {
+                "$ref": "#/definitions/LocationDefinition"
+              },
+              "notes": {
+                "description": "Optional description on the users location",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "manager": {
+          "$ref": "#/definitions/User"
+        },
+        "name": {
+          "type": "string"
+        },
+        "outOfOffice": {
+          "properties": {
+            "active": {
+              "type": "boolean"
+            },
+            "endDate": {
+              "description": "Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "description": "The globally unique identifier for the object.",
+              "readOnly": true,
+              "type": "string"
+            },
+            "indefinite": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
+            "startDate": {
+              "description": "Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "user": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "type": "object"
+        },
+        "preferredName": {
+          "description": "Preferred full name of the agent",
+          "type": "string"
+        },
+        "presence": {
+          "$ref": "#/definitions/UserPresence",
+          "description": "Active presence",
+          "readOnly": true
+        },
+        "primaryContactInfo": {
+          "description": "Auto populated from addresses.",
+          "items": {
+            "properties": {
+              "address": {
+                "description": "Email address or phone number for this contact type",
+                "type": "string"
+              },
+              "countryCode": {
+                "type": "string"
+              },
+              "display": {
+                "description": "Formatted version of the address property",
+                "readOnly": true,
+                "type": "string"
+              },
+              "extension": {
+                "description": "Use internal extension instead of address. Mutually exclusive with the address field.",
+                "type": "string"
+              },
+              "integration": {
+                "description": "Integration tag value if this number is associated with an external integration.",
+                "example": "microsoftteams",
+                "type": "string"
+              },
+              "mediaType": {
+                "enum": [
+                  "PHONE",
+                  "EMAIL",
+                  "SMS"
+                ],
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "PRIMARY",
+                  "WORK",
+                  "WORK2",
+                  "WORK3",
+                  "WORK4",
+                  "HOME",
+                  "MOBILE",
+                  "MAIN",
+                  "OTHER"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "profileSkills": {
+          "description": "Profile skills possessed by the user",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "routingStatus": {
+          "properties": {
+            "startTime": {
+              "description": "The timestamp when the agent went into this state. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "status": {
+              "description": "Indicates the Routing State of the agent.  A value of OFF_QUEUE will be returned if the specified user does not exist.",
+              "enum": [
+                "OFF_QUEUE",
+                "IDLE",
+                "INTERACTING",
+                "NOT_RESPONDING",
+                "COMMUNICATING"
+              ],
+              "type": "string"
+            },
+            "userId": {
+              "description": "The userId of the agent",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "selfUri": {
+          "description": "The URI for this object",
+          "format": "uri",
+          "readOnly": true,
+          "type": "string"
+        },
+        "skills": {
+          "description": "Routing (ACD) skills possessed by the user",
+          "items": {
+            "description": "Represents an organization skill assigned to a user. When assigning to a user specify the organization skill id as the id.",
+            "properties": {
+              "id": {
+                "description": "The globally unique identifier for the object.",
+                "readOnly": true,
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "proficiency": {
+                "description": "A rating from 0.0 to 5.0 that indicates how adept an agent is at a particular skill. When \"Best available skills\" is enabled for a queue in Genesys Cloud, ACD interactions in that queue are routed to agents with higher proficiency ratings.",
+                "format": "double",
+                "type": "number"
+              },
+              "selfUri": {
+                "description": "The URI for this object",
+                "format": "uri",
+                "readOnly": true,
+                "type": "string"
+              },
+              "skillUri": {
+                "description": "URI to the organization skill used by this user skill.",
+                "format": "uri",
+                "readOnly": true,
+                "type": "string"
+              },
+              "state": {
+                "description": "Activate or deactivate this routing skill.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "deleted"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "state": {
+          "description": "The current state for this user.",
+          "enum": [
+            "active",
+            "inactive",
+            "deleted"
+          ],
+          "readOnly": true,
+          "type": "string"
+        },
+        "station": {
+          "properties": {
+            "associatedStation": {
+              "$ref": "#/definitions/UserStation",
+              "description": "Current associated station for this user.",
+              "readOnly": true
+            },
+            "defaultStation": {
+              "$ref": "#/definitions/UserStation",
+              "description": "Default station to be used if not associated with a station.",
+              "readOnly": true
+            },
+            "effectiveStation": {
+              "$ref": "#/definitions/UserStation",
+              "description": "The station where the user can be reached based on their default and associated station.",
+              "readOnly": true
+            },
+            "lastAssociatedStation": {
+              "properties": {
+                "associatedDate": {
+                  "description": "Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "associatedUser": {
+                  "$ref": "#/definitions/User"
+                },
+                "defaultUser": {
+                  "$ref": "#/definitions/User"
+                },
+                "id": {
+                  "description": "A globally unique identifier for this station",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "providerInfo": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "Provider-specific info for this station, e.g. { \"edgeGroupId\": \"ffe7b15c-a9cc-4f4c-88f5-781327819a49\" }",
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "webRtcCallAppearances": {
+                  "description": "The number of call appearances on the station.",
+                  "format": "int32",
+                  "readOnly": true,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "team": {
+          "properties": {
+            "dateCreated": {
+              "description": "Last modified datetime. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "dateModified": {
+              "description": "Last modified datetime. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "description": {
+              "description": "Team information.",
+              "type": "string"
+            },
+            "division": {
+              "properties": {
+                "id": {
+                  "description": "The globally unique identifier for the object.",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "selfUri": {
+                  "description": "The URI for this object",
+                  "format": "uri",
+                  "readOnly": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "id": {
+              "description": "The globally unique identifier for the object.",
+              "readOnly": true,
+              "type": "string"
+            },
+            "memberCount": {
+              "description": "Number of members in a team",
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "description": "The team name",
+              "type": "string"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "title": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "version": {
+          "description": "Required when updating a user, this value should be the current version of the user.  The current version can be obtained with a GET on the user before doing a PATCH.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "workPlanBidRanks": {
+          "properties": {
+            "biddingTieBreaker": {
+              "description": "Custom agent ranking metric that some customers can use.",
+              "type": "string"
+            },
+            "id": {
+              "description": "The globally unique identifier for the user.",
+              "type": "string"
+            },
+            "selfUri": {
+              "description": "The URI for this object",
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
+            "workPlanBiddingPerformance": {
+              "description": "Work plan bidding agent performance ranking. The range of values is between 0 and 9999.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "type": "object"
+    },
+    "name": {
+      "description": "The flow name",
+      "type": "string"
+    },
+    "nluInfo": {
+      "$ref": "#/definitions/NluInfo",
+      "description": "Information about the natural language understanding configuration for the published version of the flow",
+      "readOnly": true
+    },
+    "outputSchema": {
+      "description": "json schema describing the outputs for the flow",
+      "type": "object"
+    },
+    "publishedBy": {
+      "$ref": "#/definitions/User"
+    },
+    "publishedVersion": {
+      "properties": {
+        "commitVersion": {
+          "type": "string"
+        },
+        "compatibleFlowTypes": {
+          "description": "Compatible flow types designate which flow types are allowed to embed a flow’s configuration within their own flow configuration.  Currently the only flows that can be embedded are Common Module flows and the embedding flow can invoke them using the Call Common Module action.",
+          "items": {
+            "enum": [
+              "BOT",
+              "COMMONMODULE",
+              "DIGITALBOT",
+              "INBOUNDCALL",
+              "INBOUNDCHAT",
+              "INBOUNDEMAIL",
+              "INBOUNDSHORTMESSAGE",
+              "INQUEUECALL",
+              "INQUEUEEMAIL",
+              "INQUEUESHORTMESSAGE",
+              "OUTBOUNDCALL",
+              "SECURECALL",
+              "SPEECH",
+              "SURVEYINVITE",
+              "VOICE",
+              "VOICEMAIL",
+              "VOICESURVEY",
+              "WORKFLOW",
+              "WORKITEM"
+            ],
+            "type": "string"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "configurationUri": {
+          "type": "string"
+        },
+        "configurationVersion": {
+          "type": "string"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/User"
+        },
+        "createdByClient": {
+          "$ref": "#/definitions/DomainEntityRef"
+        },
+        "dateCheckedIn": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "dateCreated": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "datePublished": {
+          "description": "The date this version became the published version of the flow. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+          "format": "date-time",
+          "readOnly": true,
+          "type": "string"
+        },
+        "datePublishedEnd": {
+          "description": "The date this version was no longer the published version of the flow. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+          "format": "date-time",
+          "readOnly": true,
+          "type": "string"
+        },
+        "dateSaved": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "debug": {
+          "type": "boolean"
+        },
+        "generationId": {
+          "type": "string"
+        },
+        "id": {
+          "description": "The flow version identifier",
+          "type": "string"
+        },
+        "inputSchema": {
+          "description": "A JSON Schema document.",
+          "properties": {
+            "$schema": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "properties": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "type": "object"
+            },
+            "required": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nluInfo": {
+          "properties": {
+            "domain": {
+              "$ref": "#/definitions/AddressableEntityRef",
+              "readOnly": true
+            },
+            "engineVersion": {
+              "type": "string"
+            },
+            "intents": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "nluData": {
+              "properties": {
+                "dateCreated": {
+                  "description": "The date when the NLU domain version was created. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                  "format": "date-time",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "dateModified": {
+                  "description": "The date when the NLU domain version was updated. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                  "format": "date-time",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "datePublished": {
+                  "description": "The date when the NLU domain version was published. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                  "format": "date-time",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "dateTrained": {
+                  "description": "The date when the NLU domain version was trained. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                  "format": "date-time",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "description": {
+                  "description": "The description of the NLU domain version.",
+                  "type": "string"
+                },
+                "domain": {
+                  "properties": {
+                    "dateCreated": {
+                      "description": "The date when the NLU domain was created. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "dateModified": {
+                      "description": "The date when the NLU domain was updated. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "draftVersion": {
+                      "$ref": "#/definitions/NluDomainVersion",
+                      "description": "The draft version of that NLU domain.",
+                      "readOnly": true
+                    },
+                    "engineVersion": {
+                      "description": "The version of the NLU engine to use.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The globally unique identifier for the object.",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "language": {
+                      "description": "The language culture of the NLU domain, e.g. `en-us`, `de-de`.",
+                      "type": "string"
+                    },
+                    "lastPublishedVersion": {
+                      "$ref": "#/definitions/NluDomainVersion",
+                      "description": "The last published version of that NLU domain.",
+                      "readOnly": true
+                    },
+                    "name": {
+                      "description": "The name of the NLU domain.",
+                      "type": "string"
+                    },
+                    "selfUri": {
+                      "description": "The URI for this object",
+                      "format": "uri",
+                      "readOnly": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "entities": {
+                  "description": "The entities defined for this NLU domain version.This field is mutually exclusive with entityTypeBindings",
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "description": "The name of the entity.",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "The name of the entity type.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "entityTypes": {
+                  "description": "The entity types defined for this NLU domain version.",
+                  "items": {
+                    "properties": {
+                      "description": {
+                        "description": "Description of the of the named entity type.",
+                        "type": "string"
+                      },
+                      "mechanism": {
+                        "properties": {
+                          "items": {
+                            "description": "The items that define the named entity type.",
+                            "items": {
+                              "properties": {
+                                "additionalLanguages": {
+                                  "additionalProperties": {
+                                    "properties": {
+                                      "synonyms": {
+                                        "description": "Synonyms for additional language",
+                                        "items": {
+                                          "type": "string"
+                                        },
+                                        "readOnly": true,
+                                        "type": "array"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "description": "Additional Language Synonyms for the given named entity value.",
+                                  "type": "object"
+                                },
+                                "synonyms": {
+                                  "description": "Synonyms for the given named entity value.",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "value": {
+                                  "description": "A value for an named entity type definition.",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "restricted": {
+                            "description": "Whether the named entity type is restricted to the items provided. Default: false",
+                            "type": "boolean"
+                          },
+                          "type": {
+                            "description": "The type of the mechanism.",
+                            "enum": [
+                              "DynamicList",
+                              "List",
+                              "Regex",
+                              "Unknown"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "items",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      "name": {
+                        "description": "The name of the entity type.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "mechanism",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "evaluationStatus": {
+                  "description": "The evaluation status of the NLU domain version.",
+                  "enum": [
+                    "Unevaluated",
+                    "Evaluating",
+                    "Evaluated",
+                    "Error"
+                  ],
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The globally unique identifier for the object.",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "intents": {
+                  "description": "The intents defined for this NLU domain version.",
+                  "items": {
+                    "properties": {
+                      "additionalLanguages": {
+                        "additionalProperties": {
+                          "properties": {
+                            "id": {
+                              "description": "ID of the intent for respective additional language",
+                              "readOnly": true,
+                              "type": "string"
+                            },
+                            "utterances": {
+                              "description": "Utterances list for additional language",
+                              "items": {
+                                "properties": {
+                                  "id": {
+                                    "description": "ID of the utterance.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                  },
+                                  "segments": {
+                                    "description": "The list of segments that that constitute this utterance for the given intent.",
+                                    "items": {
+                                      "properties": {
+                                        "entity": {
+                                          "properties": {
+                                            "name": {
+                                              "description": "The name of the annotated named entity.",
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "name"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "text": {
+                                          "description": "The text of the segment.",
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "text"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": "array"
+                                  }
+                                },
+                                "required": [
+                                  "segments"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "Additional languages for intents",
+                        "type": "object"
+                      },
+                      "entityNameReferences": {
+                        "description": "The references for the named entity used in this intent.This field is mutually exclusive with entityTypeBindings",
+                        "items": {
+                          "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
+                      },
+                      "entityTypeBindings": {
+                        "description": "The bindings for the named entity types used in this intent.This field is mutually exclusive with entityNameReferences and entities",
+                        "items": {
+                          "properties": {
+                            "entityName": {
+                              "description": "The name that this named entity type is bound to.",
+                              "type": "string"
+                            },
+                            "entityType": {
+                              "description": "The named entity type of the binding. It can be a built-in one such as builtin:number or a custom entity type such as BeverageType.",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "entityName",
+                            "entityType"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "id": {
+                        "description": "ID of the intent.",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The name of the intent.",
+                        "type": "string"
+                      },
+                      "utterances": {
+                        "description": "The utterances that act as training phrases for the intent.",
+                        "items": {
+                          "$ref": "#/definitions/NluUtterance"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "utterances"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "language": {
+                  "description": "The language that the NLU domain version supports.",
+                  "type": "string"
+                },
+                "published": {
+                  "description": "Whether this NLU domain version has been published.",
+                  "readOnly": true,
+                  "type": "boolean"
+                },
+                "selfUri": {
+                  "description": "The URI for this object",
+                  "format": "uri",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "trainingStatus": {
+                  "description": "The training status of the NLU domain version.",
+                  "enum": [
+                    "Untrained",
+                    "Training",
+                    "Trained",
+                    "Error",
+                    "Unknown"
+                  ],
+                  "readOnly": true,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "language"
+              ],
+              "type": "object"
+            },
+            "version": {
+              "$ref": "#/definitions/NluDomainVersion",
+              "readOnly": true
+            }
+          },
+          "type": "object"
+        },
+        "outputSchema": {
+          "$ref": "#/definitions/JsonSchemaDocument"
+        },
+        "publishResultUri": {
+          "format": "uri",
+          "type": "string"
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "selfUri": {
+          "description": "The URI for this object",
+          "format": "uri",
+          "readOnly": true,
+          "type": "string"
+        },
+        "supportedLanguages": {
+          "description": "List of supported languages for this version of the flow",
+          "items": {
+            "$ref": "#/definitions/SupportedLanguage"
+          },
+          "readOnly": true,
+          "type": "array"
+        },
+        "type": {
+          "enum": [
+            "PUBLISH",
+            "CHECKIN",
+            "SAVE"
+          ],
+          "type": "string"
+        },
+        "virtualAgentEnabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "savedVersion": {
+      "$ref": "#/definitions/FlowVersion"
+    },
+    "selfUri": {
+      "description": "The URI for this object",
+      "format": "uri",
+      "readOnly": true,
+      "type": "string"
+    },
+    "supportedLanguages": {
+      "description": "List of supported languages for the published version of the flow.",
+      "items": {
+        "properties": {
+          "isDefault": {
+            "description": "Whether or not this language is the default language",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "language": {
+            "description": "Architect supported language tag, e.g. en-us, es-us",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "readOnly": true,
+      "type": "array"
+    },
+    "system": {
+      "type": "boolean"
+    },
+    "type": {
+      "enum": [
+        "BOT",
+        "COMMONMODULE",
+        "DIGITALBOT",
+        "INBOUNDCALL",
+        "INBOUNDCHAT",
+        "INBOUNDEMAIL",
+        "INBOUNDSHORTMESSAGE",
+        "INQUEUECALL",
+        "INQUEUEEMAIL",
+        "INQUEUESHORTMESSAGE",
+        "OUTBOUNDCALL",
+        "SECURECALL",
+        "SPEECH",
+        "SURVEYINVITE",
+        "VOICE",
+        "VOICEMAIL",
+        "VOICESURVEY",
+        "WORKFLOW",
+        "WORKITEM"
+      ],
+      "type": "string"
+    },
+    "virtualAgentEnabled": {
+      "type": "boolean"
+    },
+    "worktypeId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

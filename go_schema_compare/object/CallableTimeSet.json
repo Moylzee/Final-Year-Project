@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "callableTimes": {
+      "description": "The list of CallableTimes for which it is acceptable to place outbound calls.",
+      "items": {
+        "properties": {
+          "timeSlots": {
+            "description": "The time intervals for which it is acceptable to place outbound calls.",
+            "items": {
+              "properties": {
+                "day": {
+                  "description": "The day of the interval. Valid values: [1-7], representing Monday through Sunday",
+                  "example": 1,
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "startTime": {
+                  "description": "The start time of the interval as an ISO-8601 string, i.e. HH:mm:ss",
+                  "example": "08:00:00",
+                  "type": "string"
+                },
+                "stopTime": {
+                  "description": "The end time of the interval as an ISO-8601 string, i.e. HH:mm:ss",
+                  "example": "08:00:00",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "day",
+                "startTime",
+                "stopTime"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "timeZoneId": {
+            "description": "The time zone for the time slots; for example, Africa/Abidjan",
+            "example": "Africa/Abidjan",
+            "type": "string"
+          }
+        },
+        "required": [
+          "timeSlots",
+          "timeZoneId"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "dateCreated": {
+      "description": "Creation time of the entity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+      "format": "date-time",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dateModified": {
+      "description": "Last modified time of the entity. Date time is represented as an ISO-8601 string. For example: yyyy-MM-ddTHH:mm:ss[.mmm]Z",
+      "format": "date-time",
+      "readOnly": true,
+      "type": "string"
+    },
+    "id": {
+      "description": "The globally unique identifier for the object.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the CallableTimeSet.",
+      "type": "string"
+    },
+    "selfUri": {
+      "description": "The URI for this object",
+      "format": "uri",
+      "readOnly": true,
+      "type": "string"
+    },
+    "version": {
+      "description": "Required for updates, must match the version number of the most recent update",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "callableTimes",
+    "name"
+  ],
+  "type": "object"
+}
